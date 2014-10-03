@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe <%= project_name %>::CLI do
+describe <%= project_name.capitalize %>::CLI do
   describe '#run' do
     context 'prints out version' do
       before(:each) do
@@ -8,7 +8,7 @@ describe <%= project_name %>::CLI do
       end
       
       it 'print outs version' do
-        @cli.should_receive(:puts).with("Version: #{<%= project_name %>::VERSION}").once
+        @cli.should_receive(:puts).with("Version: #{<%= project_name.capitalize %>::VERSION}").once
       
         @cli.run
       end
@@ -59,7 +59,7 @@ describe <%= project_name %>::CLI do
   end
   
   def create_cli(*args)
-    cli = <%= project_name %>::CLI.new(args)
+    cli = <%= project_name.capitalize %>::CLI.new(args)
     cli.stub(:puts)
     cli.stub(:exit)
     cli

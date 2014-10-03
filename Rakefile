@@ -46,10 +46,10 @@ namespace :homebrew do
   end
 
   desc 'Check in the new Homebrew formula'
-  task :commit do
+  task :commit do 
     Dir.chdir(HOMEBREW_FORMULAE_DIR) do
       `git add Formula/<%= project_name %>.rb`
-      `git commit -m "<%= project_name %>: Release version #{<%= project_name %>::VERSION}"`
+      `git commit -m "<%= project_name %>: Release version #{<%= project_name.capitalize %>::VERSION}"`
     end
   end
 
@@ -71,8 +71,8 @@ namespace :homebrew do
     desc 'Build homebrew formula'
     task :build do
       formula = File.read('homebrew/<%= project_name %>.rb')
-      formula.gsub!('__VERSION__', <%= project_name %>::VERSION)
-      formula.gsub!('__SHA__', `shasum #{GH_PAGES_DIR}/<%= project_name %>-#{<%= project_name %>::VERSION}.tar.gz`.split.first)
+      formula.gsub!('__VERSION__', <%= project_name.capitalize %>::VERSION)
+      formula.gsub!('__SHA__', `shasum #{GH_PAGES_DIR}/<%= project_name %>-#{<%= project_name.capitalize %>::VERSION}.tar.gz`.split.first)
       File.write("#{HOMEBREW_FORMULAE_DIR}/Formula/<%= project_name %>.rb", formula)
     end
   end
@@ -89,14 +89,14 @@ namespace :tarball do
 
   desc 'Move tarball into gh-pages'
   task :move do
-    FileUtils.mv("pkg/<%= project_name %>-#{<%= project_name %>::VERSION}.tar.gz", GH_PAGES_DIR)
+    FileUtils.mv("pkg/<%= project_name %>-#{<%= project_name.capitalize %>::VERSION}.tar.gz", GH_PAGES_DIR)
   end
 
   desc 'Check in the new tarball'
   task :commit do
     Dir.chdir(GH_PAGES_DIR) do
-      `git add <%= project_name %>-#{<%= project_name %>::VERSION}.tar.gz`
-      `git commit -m "Release version #{<%= project_name %>::VERSION}"`
+      `git add <%= project_name %>-#{<%= project_name.capitalize %>::VERSION}.tar.gz`
+      `git commit -m "Release version #{<%= project_name.capitalize %>::VERSION}"`
     end
   end
 
@@ -118,7 +118,7 @@ namespace :tarball do
     end
   end
 
-  Rake::PackageTask.new('<%= project_name %>', <%= project_name %>::VERSION) do |p|
+  Rake::PackageTask.new('<%= project_name %>', <%= project_name.capitalize %>::VERSION) do |p|
     p.need_tar_gz = true
     p.package_files.include('src/**/*')
     p.package_files.include('defaults/**/*')

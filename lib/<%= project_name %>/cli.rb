@@ -1,4 +1,4 @@
-module <%= project_name %>
+module <%= project_name.capitalize %>
   class CLI
     def initialize(argv)
       @argv = argv

@@ -11,4 +11,4 @@ $LOAD_PATH.unshift(File.expand_path('../../rubylib', file_path))
 
 require '<%= project_name %>'
 
-<%= project_name %>::CLI.new(ARGV).run
+<%= project_name.capitalize %>::CLI.new(ARGV).run
