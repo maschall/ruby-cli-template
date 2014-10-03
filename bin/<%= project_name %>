@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+#
+# This is a stub of the <%= project_name %> executable for development purposes.
+# The actual executable is located at src/<%= project_name %>
+
+
+$LOAD_PATH.unshift(File.expand_path('../../lib', __FILE__))
+require '<%= project_name %>'
+
+<%= project_name %>::CLI.new(ARGV).run
