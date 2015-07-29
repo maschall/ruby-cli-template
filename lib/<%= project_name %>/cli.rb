@@ -1,44 +1,27 @@
-module <%= project_name.capitalize %>
-  class CLI
-    def initialize(argv)
-      @argv = argv
-    end
-    
-    def run
-      parse_command_line_options
-    end
-    
-    private
-    
-    def parse_command_line_options
-      begin
-        global_options.parse!(@argv)
-      rescue OptionParser::InvalidOption => e
-        puts e
-        print_help
-      end
-    end
-    
-    def global_options
-      OptionParser.new do |opts|
-        opts.banner = 'Usage: <%= project_name %> [-v | --version] [-h | --help]'
-        
-        opts.on('-v', '--version', 'Display the version and exit') do
-          puts "Version: #{VERSION}"
-          exit
-        end
-        
-        opts.on('-h', '--help', 'Display this help message') do
-          puts opts
-          exit
-        end
-        
-      end
-    end
-    
-    def print_help
-      global_options.parse!(['-h'])
-    end
+require 'thor'
 
+module <%= project_name.capitalize %>
+  class CLI < Thor
+    desc "", ""
+    method_option :version, :aliases => "-v", :type => :boolean, :desc => "Display the version"
+    method_option :help, :aliases => "-h", :type => :boolean, :desc => "Display the help"
+    def cli()
+      if options[:version]
+        puts "Version: #{VERSION}"
+      elsif !options[:help]
+        # YOUR DEFAULT CODE GOES HERE
+      else
+        CLI.help
+      end
+    end
+  
+    Dir[File.expand_path('../subcommands/*.rb', __FILE__)].each do |file|
+      filename = File.basename(file, ".rb")
+      require_relative "subcommands/#{filename}"
+      desc "#{filename} [COMMANDS]", ""
+      subcommand filename, <%= project_name.capitalize %>.const_get(filename.capitalize)
+    end
+    
+    default_task :cli
   end
 end

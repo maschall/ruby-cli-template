@@ -10,4 +10,4 @@
 
 ## License
 
-Cookbook is Copyright (c) 2014 Mark Schall.  It is free software, and may be redistributed under the terms specified in the [LICENSE.txt](LICENSE.txt) file
+Cookbook is Copyright (c) 2015 Mark Schall.  It is free software, and may be redistributed under the terms specified in the [LICENSE.txt](LICENSE.txt) file
